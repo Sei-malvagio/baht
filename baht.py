@@ -335,7 +335,7 @@ async def server_info_handler(event):
     }
 
     # INFORMASI CPU #
-    cpu_temp1 = psutil.sensors_temperatures()
+    #cpu_temp1 = psutil.sensors_temperatures()
     cpu_name = platform.processor() or "Tidak diketahui"
     cpu_physical_core = psutil.cpu_count(logical=False)
     cpu_logical_core = psutil.cpu_count(logical=True)
@@ -343,7 +343,7 @@ async def server_info_handler(event):
     cpu_usage_per_core = psutil.cpu_percent(interval=1, percpu=True)
     cpu_usage_overall = psutil.cpu_percent(interval=1)
 
-    cpu_temprature_message = ""
+    #cpu_temprature_message = ""
 
     cpu_per_core = []
     for i, usage in enumerate(cpu_usage_per_core):
@@ -352,6 +352,7 @@ async def server_info_handler(event):
          "usage": usage
       })
 
+    """
     cpu_temp = []
     if "coretemp" in cpu_temp1:
       for ent in cpu_temp1["coretemp"]:
@@ -363,6 +364,7 @@ async def server_info_handler(event):
         })
     else:
       await bot.send_message(uid, "**[X] Server ini tidak mendukung cpu sensor tempratur!")
+    """
 
     cpu_temperature_message = ""
     for temp in cpu_temp:
@@ -395,9 +397,6 @@ async def server_info_handler(event):
 
 **CPU Core(s) Usage ({cpu_logical_core} Core CPU):**
 """ + "\n".join([f"  `Core {core['core']}`: {core['usage']}%" for core in cpu_per_core]) + f"""
-
-𝗖𝗨𝗥𝗥𝗘𝗡𝗧 𝗧𝗘𝗠𝗣𝗘𝗥𝗔𝗧𝗨𝗥𝗘
-{cpu_temperature_message}
     """
 
     await server_info_msg.edit(cpu_msg)
