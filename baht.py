@@ -352,8 +352,10 @@ async def server_info_handler(event):
          "usage": usage
       })
 
-    """
+
     cpu_temp = []
+
+    """
     if "coretemp" in cpu_temp1:
       for ent in cpu_temp1["coretemp"]:
         cpu_temp.append({
