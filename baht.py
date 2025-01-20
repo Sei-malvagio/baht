@@ -335,7 +335,7 @@ async def server_info_handler(event):
     }
 
     # INFORMASI CPU #
-    cpu_temp1 = psutil.sensors_tempratures()
+    cpu_temp1 = psutil.sensors_temperatures()
     cpu_name = platform.processor() or "Tidak diketahui"
     cpu_physical_core = psutil.cpu_count(logical=False)
     cpu_logical_core = psutil.cpu_count(logical=True)
