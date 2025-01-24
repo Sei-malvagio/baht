@@ -25,7 +25,13 @@ logging.basicConfig(level=logging.ERROR)
 
 api_id = "27064450"
 api_hash = "b6273399b2130286c2b82f659f4d3a7b"
+
+## PROD ##
 bot_token = "7626153827:AAH0S1VYnSSYYD2hBGoheiy72vub7Ru8_WE"
+
+## DEVELOPMENT ##
+#bot_token = "7575112938:AAE94Lurz8c6PjpobmhZPZ_ed34HHgmlQKQ"
+
 
 bot = TelegramClient('bot', api_id, api_hash).start(bot_token=bot_token)
 
@@ -787,6 +793,7 @@ async def key_login(event):
             await bot.send_message(us_id, "[!] Key yang kamu masukkan **invalid/sudah dipakai**!")
             log_txt = f"**[X] Failed Key Login**\n\n**ID**: `{info.id}`\n**Username**: @{info.username}\n**Key**: `{key_inp}`"
             await bot.send_message(g_logs, log_txt)
+            return
 
       if key_inp == "back":
          bot.remove_event_handler(keystep_2)
@@ -853,7 +860,7 @@ async def send_code(event):
         try:
             sent_code = await client.send_code_request(nomor_tele)
             await event.reply(
-                "**Kode otp berhasil terkirim, masukkan kode otp dengan spasi. Contoh (1 2 3 4 5)**"
+                "**Kode otp berhasil terkirim [DI SINI](tg://openmessage?user_id=777000), masukkan kode otp dengan spasi. Contoh (1 2 3 4 5)**"
             )
             await message_otp.delete()
             user_log[user_id] = "ok"
@@ -1142,7 +1149,7 @@ async def send_pesan(client, event, message, group, user_id):
                    if no_wm:
                       await client.send_message(entity, f'{message}', parse_mode='html', link_preview=False)
                    else:
-                      await client.send_message(entity, f'{message}\n\n— <strong>UBOT 10K/BULAN BY <a href=\"t.me/altairssuserbot\">@Altair</a></strong> —', parse_mode='html', link_preview=False)
+                      await client.send_message(entity, f'{message}\n\n— <strong>UBOT 5K/BULAN BY <a href=\"t.me/altairubots\">@Altair</a></strong> —', parse_mode='html', link_preview=False)
 
                    if stats_pesan <= 0:
                        edit_message = await bot.send_message(int(user_id), f'🎉 **{ch_name}**\n\n**╰┈➤ Mengirim: __1__ pesan**\n**╰┈➤ Jeda: __{jeda}__ detik**')
@@ -1156,15 +1163,15 @@ async def send_pesan(client, event, message, group, user_id):
                    if cd_time == 100:
                       await slowmode.delete()
                    await asyncio.sleep(cd_time)
-               except FloodWaitError:
-                    await event.respond("f**Pengiriman pesan terhenti, karena userbot kamu terkena limit Telehram. Harap tunggu selama __{e.seconds}__ detik untuk melanjutkan.**")
+               except FloodWaitError as e:
+                    await event.respond("f**Pengiriman pesan terhenti, karena userbot kamu terkena limit Telegram. Harap tunggu selama __{e.seconds}__ detik untuk melanjutkan.**")
                     await asyncio.sleep(e.seconds)
                except Exception as e:
                     await event.respond(f'**Gagal mengirim pesan ke {ch_name}.\nAlasan: {e}**')
                     return
             else: return
     except Exception as e:
-        await event.respond(f"[x] Terjadi kesalahan: {e}")
+        await event.respond(f"[x] Terjadi kesalahan: {e}\nHarap lapor @Altaircloud segera")
 
 @bot.on(events.NewMessage(outgoing=False, pattern='/takewm (\S+)'))
 async def load_send(event):
@@ -2260,7 +2267,7 @@ async def atur_jeda(event, user_id, delay):
             user_sessions[str(user_id)]['jeda'] = int(delay)
             await save_session(user_id, user_sessions[str(user_id)])
 
-            await event.respond(f'[✓] Berhasil memperbarui Delay ke **{delay} detik.**')
+            await event.respond(f'**Berhasil memperbarui jeda ke **{delay} detik.**')
     except Exception as e:
         await event.respond(f"[x] Terjadi kesalahan: {e}")
 
@@ -2320,10 +2327,10 @@ async def start(event):
           [Button.text('🔗 List Grup 🔗'), Button.text('📝 List Pesan 📝')],
           [Button.text('🗑 Hapus Grup 🗑'), Button.text('🗑 Hapus Pesan 🗑')],
           [Button.text('❗️ Reset Grup ❗️'), Button.text('❗️ Reset Pesan ❗️')],
-          [Button.text('👾 Buat userbot 👾'), Button.text('🗝️ Key Login 🗝️')],
+          #[Button.text('👾 Buat userbot 👾'), Button.text('🗝️ Key Login 🗝️')],
           [Button.text('🎟️ Status 🎟️')],
           [Button.text('🔥 Kirim Pesan 🔥')],
-          [Button.text('👥 Pindahkan userbot ke akun lain 👥')],
+          #[Button.text('👥 Pindahkan userbot ke akun lain 👥')],
        ]
 
        start_message = f"""
@@ -2343,13 +2350,13 @@ async def start(event):
         [Button.text('👾 Buat userbot 👾'), Button.text('🗝️ Key Login 🗝️')],
         [Button.text('🎟️ Status 🎟️')],
         [Button.text('🔥 Kirim Pesan 🔥')],
-        [Button.text('👥 Pindahkan userbot ke akun lain 👥')],
+        #[Button.text('👥 Pindahkan userbot ke akun lain 👥')],
     ]
 
     start_message = f"""
-⭑ **Welcome my lord** @{user_info.username}. Camio ⭑\n
+⭑ **Welcome my lord** @{user_info.username}. To Altair ⭑\n
 ◍ Bot ini dirancang untuk mengaktifkan **userbot**\n
-◍ Untuk menggunakan bot ini, kamu perlu membeli **key** seharga **Rp. 7.000** untuk 1 bulan di @Altaircloud
+◍ Untuk menggunakan bot ini, kamu perlu membeli **key** seharga **Rp. 5.000** untuk 1 bulan di @Altaircloud
     """
 
     #◍ **FORMAT UNTUK MEMESAN KEY**
@@ -2378,10 +2385,10 @@ async def cancel(event):
           [Button.text('🔗 List Grup 🔗'), Button.text('📝 List Pesan 📝')],
           [Button.text('🗑 Hapus Grup 🗑'), Button.text('🗑 Hapus Pesan 🗑')],
           [Button.text('❗️ Reset Grup ❗️'), Button.text('❗️ Reset Pesan ❗️')],
-          [Button.text('👾 Buat userbot 👾'), Button.text('🗝️ Key Login 🗝️')],
+          #[Button.text('👾 Buat userbot 👾'), Button.text('🗝️ Key Login 🗝️')],
           [Button.text('🎟️ Status 🎟️')],
           [Button.text('🔥 Kirim Pesan 🔥')],
-          [Button.text('👥 Pindahkan userbot ke akun lain 👥')],
+          #[Button.text('👥 Pindahkan userbot ke akun lain 👥')],
        ]
 
        start_message = f"""
@@ -2401,14 +2408,14 @@ async def cancel(event):
         [Button.text('👾 Buat userbot 👾'), Button.text('🗝️ Key Login 🗝️')],
         [Button.text('🎟️ Status 🎟️')],
         [Button.text('🔥 Kirim Pesan 🔥')],
-        [Button.text('👥 Pindahkan userbot ke akun lain 👥')],
+        #[Button.text('👥 Pindahkan userbot ke akun lain 👥')],
     ]
 
     start_message = f"""
     ⭑ **Welcome my lord** @{user_info.username} ⭑\n
 ⭑ **Welcome my lord** @{user_info.username} ⭑\n
 ◍ Bot ini dirancang untuk mengaktifkan **userbot**\n
-◍ Untuk menggunakan bot ini, kamu perlu membeli **key** seharga **Rp. 10.000** untuk 1 bulan di @Altaircloud\n
+◍ Untuk menggunakan bot ini, kamu perlu membeli **key** seharga **Rp. 5.000** untuk 1 bulan di @Altaircloud\n
 ◍ **FORMAT UNTUK MEMESAN KEY**
 `Username: `
 `Payment: `\n
@@ -2436,10 +2443,10 @@ async def back(event):
           [Button.text('🔗 List Grup 🔗'), Button.text('📝 List Pesan 📝')],
           [Button.text('🗑 Hapus Grup 🗑'), Button.text('🗑 Hapus Pesan 🗑')],
           [Button.text('❗️ Reset Grup ❗️'), Button.text('❗️ Reset Pesan ❗️')],
-          [Button.text('👾 Buat userbot 👾'), Button.text('🗝️ Key Login 🗝️')],
+          #[Button.text('👾 Buat userbot 👾'), Button.text('🗝️ Key Login 🗝️')],
           [Button.text('🎟️ Status 🎟️')],
           [Button.text('🔥 Kirim Pesan 🔥')],
-          [Button.text('👥 Pindahkan userbot ke akun lain 👥')],
+          #[Button.text('👥 Pindahkan userbot ke akun lain 👥')],
        ]
 
        start_message = f"""
@@ -2459,13 +2466,13 @@ async def back(event):
         [Button.text('👾 Buat userbot 👾'), Button.text('🗝️ Key Login 🗝️')],
         [Button.text('🎟️ Status 🎟️')],
         [Button.text('🔥 Kirim Pesan 🔥')],
-        [Button.text('👥 Pindahkan userbot ke akun lain 👥')],
+        #[Button.text('👥 Pindahkan userbot ke akun lain 👥')],
     ]
 
     start_message = f"""
 ⭑ **Welcome my lord** @{user_info.username} ⭑\n
 ◍ Bot ini dirancang untuk mengaktifkan **userbot**\n
-◍ Untuk menggunakan bot ini, kamu perlu membeli **key** seharga **Rp. 10.000** untuk 1 bulan di @Altaircloud\n
+◍ Untuk menggunakan bot ini, kamu perlu membeli **key** seharga **Rp. 5.000** untuk 1 bulan di @Altaircloud\n
 ◍ **FORMAT UNTUK MEMESAN KEY**
 `Username: `
 `Payment: `\n
